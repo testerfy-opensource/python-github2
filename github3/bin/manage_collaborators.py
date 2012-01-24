@@ -16,7 +16,7 @@ import sys
 
 from optparse import OptionParser
 
-import github2.client
+import github3.client
 
 
 #: Running under Python 3
@@ -80,7 +80,7 @@ def main():
     if not options.account:
         options.account = options.login
 
-    github = github2.client.Github(username=options.login,
+    github = github3.client.Github(username=options.login,
                                    api_token=options.apitoken,
                                    cache=options.cache)
 

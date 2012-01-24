@@ -1,11 +1,11 @@
-from github2.request import GithubRequest
-from github2.issues import Issues
-from github2.repositories import Repositories
-from github2.users import Users
-from github2.commits import Commits
-from github2.organizations import Organizations
-from github2.teams import Teams
-from github2.pull_requests import PullRequests
+from github3.request import GithubRequest
+from github3.issues import Issues
+from github3.repositories import Repositories
+from github3.users import Users
+from github3.commits import Commits
+from github3.organizations import Organizations
+from github3.teams import Teams
+from github3.pull_requests import PullRequests
 
 
 class Github(object):
@@ -15,7 +15,7 @@ class Github(object):
                  proxy_port=8080, github_url=None):
         """
         An interface to GitHub's API:
-            http://develop.github.com/
+            http://developer.github.com/
 
         .. versionadded:: 0.2.0
            The ``requests_per_second`` parameter

@@ -9,7 +9,7 @@ import sys
 from optparse import OptionParser
 from textwrap import wrap
 
-import github2.client
+import github3.client
 
 
 #: Running under Python 3
@@ -51,7 +51,7 @@ def main():
 
     options, term = parse_commandline()
 
-    github = github2.client.Github(cache=options.cache)
+    github = github3.client.Github(cache=options.cache)
 
     # PEP-308 conditional expressions are much better, but we're keeping Py2.4
     # compatibility elsewhere.

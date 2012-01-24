@@ -1,4 +1,4 @@
-# This is github2 version 0.6.0 (2011-12-21)
+# This is github3 version 0.6.0 (2011-12-21)
 # pylint: disable=C0103, C0111, C0121, W0622
 
 dotted = "0.6.0"

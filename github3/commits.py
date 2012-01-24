@@ -1,4 +1,4 @@
-from github2.core import (BaseData, GithubCommand, Attribute, DateAttribute,
+from github3.core import (BaseData, GithubCommand, Attribute, DateAttribute,
                           repr_string)
 
 

@@ -3,7 +3,7 @@ try:
 except ImportError:
     from urllib import quote_plus
 
-from github2.core import (GithubCommand, BaseData, Attribute, DateAttribute,
+from github3.core import (GithubCommand, BaseData, Attribute, DateAttribute,
                           repr_string, requires_auth)
 
 

@@ -1,6 +1,6 @@
-"Github API v2 library for Python"
+"Github API v3 library for Python"
 
-from github2 import _version
+from github3 import _version
 
 VERSION = _version.tuple
 

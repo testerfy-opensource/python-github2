@@ -6,7 +6,7 @@ from dateutil import (parser, tz)
 
 
 #: Logger for core module
-LOGGER = logging.getLogger('github2.core')
+LOGGER = logging.getLogger('github3.core')
 
 #: Running under Python 3
 PY3K = sys.version_info[0] == 3
@@ -96,6 +96,8 @@ def datetime_to_isodate(datetime_):
 class AuthError(Exception):
     """Requires authentication"""
 
+class DeprecationException(Exception):
+    """Deprecated by v3 of the github api"""
 
 def requires_auth(f):
     """Decorate to check a function call for authentication

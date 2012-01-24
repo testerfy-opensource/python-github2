@@ -1,6 +1,6 @@
-from github2.core import BaseData, GithubCommand, Attribute, requires_auth
-from github2.repositories import Repository
-from github2.users import User
+from github3.core import BaseData, GithubCommand, Attribute, requires_auth
+from github3.repositories import Repository
+from github3.users import User
 
 
 class Team(BaseData):

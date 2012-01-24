@@ -34,12 +34,12 @@ import httplib2
 
 
 #: Hostname for API access
-DEFAULT_GITHUB_URL = "https://github.com"
+DEFAULT_GITHUB_URL = "https://api.github.com"
 
 #: Logger for requests module
-LOGGER = logging.getLogger('github2.request')
+LOGGER = logging.getLogger('github3.request')
 
-#: Whether github2 is using the system's certificates for SSL connections
+#: Whether github3 is using the system's certificates for SSL connections
 SYSTEM_CERTS = not httplib2.CA_CERTS.startswith(path.dirname(httplib2.__file__))
 if not SYSTEM_CERTS and sys.platform.startswith('linux'):
     for cert_file in ['/etc/ssl/certs/ca-certificates.crt',
@@ -101,9 +101,7 @@ class HttpError(RuntimeError):
 
 
 class GithubRequest(object):
-    url_format = "%(github_url)s/api/%(api_version)s/%(api_format)s"
-    api_version = "v2"
-    api_format = "json"
+    url_format = "%(github_url)s"
     GithubError = GithubError
 
     def __init__(self, username=None, api_token=None, url_prefix=None,
@@ -112,7 +110,7 @@ class GithubRequest(object):
                  github_url=None):
         """Make an API request.
 
-        :see: :class:`github2.client.Github`
+        :see: :class:`github3.client.Github`
         """
         self.username = username
         self.api_token = api_token
@@ -130,8 +128,6 @@ class GithubRequest(object):
         if not self.url_prefix:
             self.url_prefix = self.url_format % {
                 "github_url": self.github_url,
-                "api_version": self.api_version,
-                "api_format": self.api_format,
             }
         if proxy_host is None:
             self._http = httplib2.Http(cache=cache)
@@ -189,6 +185,7 @@ class GithubRequest(object):
 
         extra_post_data = extra_post_data or {}
         url = "/".join([self.url_prefix, quote(path)])
+        print url
         result = self.raw_request(url, extra_post_data, method=method)
 
         if self.delay:
@@ -215,7 +212,7 @@ class GithubRequest(object):
                             % (response.status, content), content,
                             response.status)
         json = simplejson.loads(content.decode(charset_from_headers(response)))
-        if json.get("error"):
+        if 'error' in json:
             raise self.GithubError(json["error"][0]["error"])
 
         return json
@@ -223,6 +220,6 @@ class GithubRequest(object):
     @property
     def http_headers(self):
         return {
-            "User-Agent": "pygithub2 v1",
+            "User-Agent": "pygithub3 v1",
             "Accept": "application/json",
         }
