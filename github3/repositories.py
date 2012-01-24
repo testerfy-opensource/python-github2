@@ -1,5 +1,5 @@
 from github3.core import (BaseData, GithubCommand, Attribute, DateAttribute,
-                          requires_auth)
+                          requires_auth, enhanced_by_auth)
 
 from github3.users import User
 
@@ -64,6 +64,7 @@ class Repositories(GithubCommand):
         return self.get_values("pushable", filter="repositories",
                                datatype=Repository)
 
+    @enhanced_by_auth
     def list(self, user=None, page=1):
         """Return a list of all repositories for a user.
 
@@ -78,21 +79,14 @@ class Repositories(GithubCommand):
         user = user or self.request.username
         temp_domain = self.domain
         self.domain = 'users'
+        if self.request.access_token or self.request.api_token:
+            user=None
+            self.domain = 'user'
+        
         ret_val = self.get_values(user, "repos", filter=None,
                                datatype=Repository, page=page)
         self.domain = temp_domain
         return ret_val
-
-    @requires_auth
-    def list_auth(self):
-        """Returns a list of all repositories for the authenticated user.
-        """
-        temp_domain = self.domain
-        self.domain = 'user'
-        ret_val = self.get_values("repos", filter=None,
-                               datatype=Repository)
-        self.domain = temp_domain
-        return ret_val        
 
     @requires_auth
     def watch(self, project):
