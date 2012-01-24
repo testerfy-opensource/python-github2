@@ -5,7 +5,7 @@ import sys
 
 from setuptools import setup, find_packages
 
-import github2
+import github3
 
 
 install_requires = ['httplib2 >= 0.7.0', ]
@@ -22,13 +22,13 @@ long_description = (codecs.open('README.rst', "r", "utf-8").read()
     + "\n" + codecs.open('NEWS.rst', "r", "utf-8").read())
 
 setup(
-    name='github2',
-    version=github2.__version__,
-    description=github2.__doc__,
+    name='github3',
+    version=github3.__version__,
+    description=github3.__doc__,
     long_description=long_description,
-    author=github2.__author__,
-    author_email=github2.__contact__,
-    url=github2.__homepage__,
+    author=github3.__author__,
+    author_email=github3.__contact__,
+    url=github3.__homepage__,
     license='BSD',
     keywords="git github api",
     platforms=["any"],
@@ -37,8 +37,8 @@ setup(
     package_data={'': ['*.crt', ], },
     entry_points={
         'console_scripts': [
-            'github_manage_collaborators = github2.bin.manage_collaborators:main',
-            'github_search_repos = github2.bin.search_repos:main',
+            'github_manage_collaborators = github3.bin.manage_collaborators:main',
+            'github_search_repos = github3.bin.search_repos:main',
         ],
     },
     install_requires=install_requires,
