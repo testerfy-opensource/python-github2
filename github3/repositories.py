@@ -76,12 +76,13 @@ class Repositories(GithubCommand):
         :param str user: Github user name to list repositories for
         :param int page: optional page number
         """
-        user = user or self.request.username
         temp_domain = self.domain
-        self.domain = 'users'
-        if self.request.access_token or self.request.api_token:
-            user=None
+        if (self.request.access_token or self.request.api_token) and (user is None or user == self.request.username):
+            user = None
             self.domain = 'user'
+        else:
+            user = user or self.request.username
+            self.domain = 'users'
         
         ret_val = self.get_values(user, "repos", filter=None,
                                datatype=Repository, page=page)
