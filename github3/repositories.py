@@ -239,3 +239,53 @@ class Repositories(GithubCommand):
         """
         return self.get_values("show", project, "contributors",
                                filter="contributors", datatype=User)
+
+    @requires_auth
+    def list_keys(self, project, user):
+        """List the keys for a repo"""
+        return self.get_values(user, project, "keys")
+
+    @requires_auth
+    def get_key(self, project, user, id):
+        """Get a specific key using the key id
+
+        :param str project: The github project name
+        :param str user: The github user
+        :param str key: Key id
+        """
+        return self.get_value(user, project, "keys", str(id))
+    
+    @requires_auth
+    def create_key(self, project, user, key_title, key_data):
+        """Create a key for a repo
+
+        :param str title: The name of the key
+        :param str key_data: The public key
+        """ 
+        key = {'title': key_title,
+               'key': key_data}
+        return self.get_value(user, project, 'keys', post_data=key, method='POST')
+
+    @requires_auth
+    def update_key(self, project, user, id, key_title, key_data):
+        """Update a specific key
+
+        :param str project: The github project to be updated
+        :param str user: The github username
+        :param str id: The id of the key
+        :param str key_title: The key title
+        :param str key_data: The public key
+        """
+        key = {'title': key_title, 
+               'key': key_data}
+        return self.get_value(user, project, 'keys', id, post_data=key, method='POST')
+
+    @requires_auth
+    def delete_key(self, project, user, id):
+        """Delete a github key
+
+        :param str project: The github project
+        :param str user: The github user
+        :param str id: The id of the key to be deleted
+        """
+        return self.get_value(user, project, 'keys', id, method='DELETE')

@@ -114,47 +114,4 @@ class Users(GithubCommand):
         """
         return self.get_values("unfollow", other_user, method="POST")
 
-    # @requires_auth
-    # def keys(self):
-    #     temp_domain = self.domain
-    #     self.domain = 'user'
-    #     v = self.get_values("keys")
-    #     self.domain = temp_domain        
-
-    # @requires_auth
-    # def key(self, id):
-    #     temp_domain = self.domain
-    #     self.domain = 'user'
-    #     v = self.get_value("key", id)
-    #     self.domain = temp_domain
-    #     return v
-    
-    # @requires_auth
-    # def create_key(self, title, key_data):
-    #     key = {'title': title, 
-    #            'key': key_data}
-    #     temp_domain = self.domain
-    #     self.domain = 'user'
-    #     v = self.get_value('keys', post_data=key, method='POST')
-    #     self.domain = temp_domain
-    #     return v
-
-    # @requires_auth
-    # def update_key(self, id, title, key_data):
-    #     key = {'title': title, 
-    #            'key': key_data}
-    #     temp_domain = self.domain
-    #     self.domain = 'user'
-    #     v = self.get_value('keys', id, post_data=key, method='POST')
-    #     self.domain = temp_domain
-    #     return v
-
-    # @requires_auth
-    # def delete_key(self, id):
-    #     temp_domain = self.domain
-    #     self.domain = 'user'
-    #     v = self.get_value('keys', id, method='DELETE')
-    #     self.domain = temp_domain
-    #     return v        
-
 

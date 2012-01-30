@@ -185,7 +185,7 @@ class GithubRequest(object):
 
         extra_post_data = extra_post_data or {}
         url = "/".join([self.url_prefix, quote(path)])
-        print url
+        print('Request url: %s' % url)
         result = self.raw_request(url, extra_post_data, method=method)
 
         if self.delay:
@@ -198,8 +198,9 @@ class GithubRequest(object):
         headers = self.http_headers
         method = method.upper()
         if extra_post_data or method == "POST":
-            post_data = self.encode_authentication_data(extra_post_data)
+            post_data = simplejson.dumps(extra_post_data)
             headers["Content-Length"] = str(len(post_data))
+            headers["Authorization"] = "token %s" % self.access_token
         else:
             query = self.encode_authentication_data(parse_qs(query))
         url = urlunsplit((scheme, netloc, path, query, fragment))
@@ -211,7 +212,10 @@ class GithubRequest(object):
             raise HttpError("Unexpected response from github.com %d: %r"
                             % (response.status, content), content,
                             response.status)
-        json = simplejson.loads(content.decode(charset_from_headers(response)))
+        if response.status != 204:
+            json = simplejson.loads(content.decode(charset_from_headers(response)))
+        else:
+            json = {'success': True}
         if 'error' in json:
             raise self.GithubError(json["error"][0]["error"])
 
