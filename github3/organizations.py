@@ -33,7 +33,7 @@ class Organization(BaseData):
 
 class Organizations(GithubCommand):
     """.. versionadded:: 0.4.0"""
-    domain = "organizations"
+    domain = "orgs"
 
     def show(self, organization):
         """Get information on organization
@@ -43,10 +43,21 @@ class Organizations(GithubCommand):
         return self.get_value(organization, filter="organization",
                               datatype=Organization)
 
-    def list(self):
+    def list(self, user=None):
         """Get list of all of your organizations"""
-        return self.get_values('', filter="organizations",
+
+        temp_domain = self.domain
+        if (self.request.access_token or self.request.api_token) and (user is None or user == self.request.username):
+            user = None
+            self.domain = 'user'
+        else:
+            user = user or self.request.username
+            self.domain = 'users'
+        
+        ret_val = self.get_values(user, 'orgs', filter=None,
                                datatype=Organization)
+        self.domain = temp_domain
+        return ret_val
 
     def repositories(self, organization=''):
         """Get list of all repositories in an organization
