@@ -40,12 +40,11 @@ class Organizations(GithubCommand):
 
         :param str organization: organization to show
         """
-        return self.get_value(organization, filter="organization",
+        return self.get_value(organization, filter=None,
                               datatype=Organization)
 
     def list(self, user=None):
         """Get list of all of your organizations"""
-
         temp_domain = self.domain
         if (self.request.access_token or self.request.api_token) and (user is None or user == self.request.username):
             user = None
@@ -67,8 +66,8 @@ class Organizations(GithubCommand):
 
         :param: str organization: organization to list repositories for
         """
-        return self.get_values(organization, 'repositories',
-                               filter="repositories", datatype=Repository)
+        return self.get_values(organization, 'repos',
+                               filter=None, datatype=Repository)
 
     def public_repositories(self, organization):
         """Get list of public repositories in an organization
