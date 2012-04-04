@@ -289,3 +289,35 @@ class Repositories(GithubCommand):
         :param str id: The id of the key to be deleted
         """
         return self.get_value(user, project, 'keys', id, method='DELETE')
+    
+    @requires_auth
+    def create_hook(self, project, user, url):
+        """Create a github post receive hook
+        
+        :param str project: The github project
+        :param str user: The github user
+        :param str url: The url that will be called
+        """
+        data = {'name': 'web',
+                'active': True,
+                'config':{'content-type': 'form',
+                          'insecure_ssl': '1',
+                          'url': url}}
+        return self.get_value(user, project, 'hooks', post_data=data, method='POST')
+    
+    def list_hooks(self, project, user):
+        """List all github post receive hooks
+        
+        :param str project: The github project
+        :param str user: The github user
+        """
+        return self.get_values(user, project, "hooks", method='GET')
+    
+    def delete_hook(self, project, user, id):
+        """Delete a github post receive hooks
+        
+        :param str project: The github project
+        :param str user: The github user
+        :param str id: The github hook id
+        """
+        return self.get_value(user, project, "hooks", id, method='DELETE')
