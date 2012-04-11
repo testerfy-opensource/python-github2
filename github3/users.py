@@ -70,7 +70,17 @@ class Users(GithubCommand):
 
         :param str username: Github user name
         """
-        return self.get_value(None, username, filter=None, datatype=User)
+        if username is None and self.request.username is None:
+            temp_domain = self.domain
+            self.domain = "user"
+            ret_val = self.get_value(None, None, filter=None, datatype=User)
+            self.domain = temp_domain
+        else:
+            if username is None:
+                username = self.request.username
+            ret_val = self.get_value(None, username, filter=None, datatype=User)
+            
+        return ret_val
 
     def followers(self, username):
         """Get list of Github user's followers
